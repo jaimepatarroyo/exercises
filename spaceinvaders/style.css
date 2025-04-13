@@ -1,6 +1,13 @@
 html, body {
   margin: 0;
   padding: 0;
+  
+  height: 100vh;           /* Full viewport height */
+  display: flex;           /* Enables flexbox */
+  justify-content: center; /* Centers horizontally */
+  align-items: center;     /* Centers vertically */
+  
+  background: #4c408e;    /* Light gray background */
 }
 canvas {
   display: block;

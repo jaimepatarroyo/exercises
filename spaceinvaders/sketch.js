@@ -1,30 +1,24 @@
 let me;
+let enemies;
 
-let lineTest;
-let numInv;
+let m; // margin
 
 function setup() {
-  createCanvas(400, 400);
-  background(50, 0, 100);
+  m = 20;
+  createCanvas(400 + m * 2, 400 + m * 2);
+  background(15, 20, 65);
   textAlign(CENTER);
 
-  me = new Player(20, height);
-
-  numInv = 5;
-  lineTest = [];
-  for (i = 0; i < numInv; i++) lineTest[i] = new Invader(i * 40 + 20, 30);
+  me = new Player(20 + m, height - 10 - m);
+  enemies = new Fleet(6);
 }
 
 function draw() {
-  background(25, 0, 75);
+  background(15, 20, 65);
 
-
-  for (i = 0; i < numInv; i++) lineTest[i].show();
+  enemies.show();
   if (frameCount % 15 === 0) {
-    for (i = 0; i < numInv; i++) lineTest[i].step();
-    if (lineTest[numInv-1].x >= width || lineTest[0].x <= 0) {
-      for (i = 0; i < numInv; i++) lineTest[i].stepDown();
-    }
+    enemies.move();
   }
 
   me.show();
@@ -80,3 +74,21 @@ class Invader {
   }
 }
 
+class Fleet {
+  constructor(_n) {
+    this.num = _n;
+    this.arr = [];
+    for (let i = 0; i < this.num; i++)
+      this.arr[i] = new Invader(i * 40 + 20 + m, 30 + m);
+  }
+
+  show() {
+    for (let i = 0; i < this.num; i++) this.arr[i].show();
+  }
+
+  move() {
+    for (let i = 0; i < this.num; i++) this.arr[i].step();
+    if (this.arr[this.num - 1].x >= width - m || this.arr[0].x <= 0 + m)
+      for (let i = 0; i < this.num; i++) this.arr[i].stepDown();
+  }
+}
