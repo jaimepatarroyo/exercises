@@ -1,15 +1,24 @@
-let me;
-let enemies;
+/**
+ * A simple Space Invaders-style game using p5.js
+ * Player controls a Christmas tree (🎄) to defend against snowman invaders (⛄️)
+ * Created for the Recurse Center pairing interview
+ * By Jaime Patarroyo
+ */
 
-let m; // margin
+let me;       // Player object
+let enemies;  // Fleet of enemy invaders
+
+let m;        // Margin around the game area
 
 function setup() {
-  m = 20;
+  m = 20; // 20px margin on all sides
   createCanvas(400 + m * 2, 400 + m * 2);
   background(15, 20, 65);
-  textAlign(CENTER);
+  textAlign(CENTER, CENTER);
 
-  me = new Player(20 + m, height - 10 - m);
+  // Initialize player at the bottom with margin
+  me = new Player(20 + m, height - 20 - m);
+  // Create fleet of 6 enemies
   enemies = new Fleet(6);
 }
 
@@ -17,6 +26,7 @@ function draw() {
   background(15, 20, 65);
 
   enemies.show();
+  // Move enemies every 15 frames (~4 moves per second)
   if (frameCount % 15 === 0) {
     enemies.move();
   }
@@ -25,6 +35,7 @@ function draw() {
 }
 
 function keyPressed() {
+  // Moves player left or right based on arrow keys
   if (keyCode === RIGHT_ARROW) me.moveR();
   else if (keyCode === LEFT_ARROW) me.moveL();
 }
@@ -78,8 +89,9 @@ class Fleet {
   constructor(_n) {
     this.num = _n;
     this.arr = [];
+    // Create invaders spaced evenly at the top
     for (let i = 0; i < this.num; i++)
-      this.arr[i] = new Invader(i * 40 + 20 + m, 30 + m);
+      this.arr[i] = new Invader(i * 40 + 20 + m, 20 + m);
   }
 
   show() {
