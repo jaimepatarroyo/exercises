@@ -1,21 +1,30 @@
-let prueba;
 let me;
+
+let lineTest;
+let numInv;
 
 function setup() {
   createCanvas(400, 400);
   background(50, 0, 100);
   textAlign(CENTER);
 
-  prueba = new Invader(20, 30);
   me = new Player(20, height);
+
+  numInv = 5;
+  lineTest = [];
+  for (i = 0; i < numInv; i++) lineTest[i] = new Invader(i * 40 + 20, 30);
 }
 
 function draw() {
   background(25, 0, 75);
 
-  prueba.show();
-  if (frameCount % 15 == 0) {
-    prueba.step();
+
+  for (i = 0; i < numInv; i++) lineTest[i].show();
+  if (frameCount % 15 === 0) {
+    for (i = 0; i < numInv; i++) lineTest[i].step();
+    if (lineTest[numInv-1].x >= width || lineTest[0].x <= 0) {
+      for (i = 0; i < numInv; i++) lineTest[i].stepDown();
+    }
   }
 
   me.show();
@@ -61,11 +70,13 @@ class Invader {
   }
 
   step() {
-    this.x += this.size/2 * this.dir;
-    if (this.x >= width || this.x <= 0) {
-      this.y += this.size;
-      this.dir = -this.dir;
-      this.x += this.size/2 * this.dir;
-    }
+    this.x += (this.size / 2) * this.dir;
+  }
+
+  stepDown() {
+    this.y += this.size;
+    this.dir = -this.dir;
+    this.step();
   }
 }
+
