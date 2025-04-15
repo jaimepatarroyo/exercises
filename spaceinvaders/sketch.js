@@ -9,7 +9,6 @@
 let me; // Player object
 let enemies; // Fleet of enemy invaders
 
-let oneBullet;
 let bullets; // Array of bullets
 
 let m; // Margin around the game area
@@ -21,15 +20,6 @@ function setup() {
   textAlign(CENTER, CENTER);
 
   start();
-
-  /*
-  // Initialize player at the bottom with margin
-  me = new Player(20 + m, height - 20 - m);
-  // Create fleet of 6 enemies
-  enemies = new Fleet(6);
-
-  bullets = [];
-  */
 }
 
 function draw() {
@@ -63,7 +53,7 @@ function keyPressed() {
   if (keyCode === RIGHT_ARROW) me.moveR();
   else if (keyCode === LEFT_ARROW) me.moveL();
   else if (key === ' ') bullets[bullets.length] = new Bullet(me.x, me.y);
-  else if (key === 'r') start();
+  else if (key === 'r' || key === 'R') start();
 }
 
 function start() {
