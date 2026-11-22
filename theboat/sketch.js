@@ -14,7 +14,7 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   imageMode(CENTER);
-  noCursor();
+  //noCursor();
 
   lastSwitch = millis();
   displayTime = floor(random(100, 501));
